@@ -46,6 +46,16 @@ public class SerialDispatchQueue extends AbstractDispatchObject implements HawtD
     public SerialDispatchQueue(String label) {
         this.label = label;
     }
+    
+    public void executeSync(Task task) {
+        boolean sync = triggered.compareAndSet(false, true);
+        execute(task);
+        if (sync) {
+            run();
+        } else {
+            getTargetQueue().execute(this);
+        }
+    }
 
     public void execute(Task task) {
         assert task != null;

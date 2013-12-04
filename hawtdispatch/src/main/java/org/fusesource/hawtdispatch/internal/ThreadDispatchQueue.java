@@ -87,6 +87,11 @@ final public class ThreadDispatchQueue implements HawtDispatchQueue {
             localTasks.add(task);
         }
     }
+    
+    public void executeSync(Task task) {
+        // do not try to be clever now for thread dispatch queue
+        execute(task);
+    }
 
     public Task poll() {
         Task rc = localTasks.poll();

@@ -121,6 +121,25 @@ public interface DispatchQueue extends DispatchObject, Executor {
 
     /**
      * <p>
+     * Submits a task for potentially synchronous execution on a dispatch queue.
+     * </p><p>
+     * Calls to {@link #executeSync(Task)} will try to not return immediately
+     * after the runnable has been submitted, and will try to wait for the
+     * runnable to be executed iff the runnable can be executed immediately
+     * without blocking.
+     * </p><p>
+     * The target queue determines whether the runnable will be invoked serially or
+     * concurrently with respect to other runnables submitted to that same queue.
+     * Serial queues are processed concurrently with with respect to each other.
+     * </p>
+     *
+     * @param task
+     * The task to submit to the dispatch queue.
+     */
+    void executeSync(Task task);
+
+    /**
+     * <p>
      * Schedule a runnable for execution on a given queue at a specified time.
      * </p>
      *

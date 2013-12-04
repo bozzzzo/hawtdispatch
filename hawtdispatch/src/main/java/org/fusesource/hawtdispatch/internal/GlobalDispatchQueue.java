@@ -99,6 +99,11 @@ final public class GlobalDispatchQueue implements HawtDispatchQueue {
         }
         workers.execute(task);
     }
+    
+    public void executeSync(Task task) {
+        // do not try to be clever for global queue right now
+        execute(task);
+    }
 
     public void executeAfter(long delay, TimeUnit unit, Task task) {
         if( dispatcher.shutdownState.get() > 0 ) {
